@@ -21,8 +21,8 @@ const todoSchema = mongoose.Schema({
         required: true
     },
     date: {
-        type: String,
-        default: Date
+        type: Date,
+        default: new Date()
     }
 })
 

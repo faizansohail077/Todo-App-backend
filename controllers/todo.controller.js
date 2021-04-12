@@ -1,8 +1,8 @@
 const { Schema } = require('../model')
 
 exports.getTodo = async (req, res) => {
-    const getTodo = await Schema.find({})
     try {
+        const getTodo = await Schema.find({})
         res.send(getTodo)
     } catch (e) {
         res.status(400).send({ failure: true, message: e.message })
@@ -10,8 +10,8 @@ exports.getTodo = async (req, res) => {
 }
 
 exports.getTodoById = async (req, res) => {
-    const getTodo = await Schema.findById({ _id: req.params.id })
     try {
+        const getTodo = await Schema.findById({ _id: req.params.id })
         res.send(getTodo)
     } catch (e) {
         res.send({ failure: true, message: e.message })
@@ -52,8 +52,8 @@ exports.updateById = async (req, res) => {
 }
 
 exports.deleteById = async (req, res) => {
-    const deleteTodo = await Schema.findByIdAndDelete({ _id: req.params.id })
     try {
+        const deleteTodo = await Schema.findByIdAndDelete({ _id: req.params.id })
         res.send(deleteoTodo)
     } catch (e) {
         res.status().send({ failure: true, message: e.message })
