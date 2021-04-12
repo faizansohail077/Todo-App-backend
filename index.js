@@ -11,6 +11,6 @@ app.use(express.json())
 app.use(morgan('dev'))
 app.use(Routes)
 
-app.listen(4000, () => {
+app.listen(process.env.PORT || 4000, () => {
     console.log('server working')
 })
