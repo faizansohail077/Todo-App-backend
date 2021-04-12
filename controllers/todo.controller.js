@@ -54,8 +54,8 @@ exports.updateById = async (req, res) => {
 exports.deleteById = async (req, res) => {
     try {
         const deleteTodo = await Schema.findByIdAndDelete({ _id: req.params.id })
-        res.send(deleteoTodo)
+        res.send(deleteTodo)
     } catch (e) {
-        res.status().send({ failure: true, message: e.message })
+        res.status(400).send({ failure: true, message: e.message })
     }
 }
