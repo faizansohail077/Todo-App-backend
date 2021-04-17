@@ -1,8 +1,10 @@
 const mongoose = require('mongoose')
+const { db } = require('../config/db')
 
-mongoose.connect(process.env.DB_URL, {
+mongoose.connect(db.url, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    createIndexes: true
 })
     .then(() => {
         console.log('database connected')

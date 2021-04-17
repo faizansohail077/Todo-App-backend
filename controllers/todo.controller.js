@@ -1,8 +1,8 @@
-const { Schema } = require('../model')
+const { todoSchema } = require('../model')
 
 exports.getTodo = async (req, res) => {
     try {
-        const getTodo = await Schema.find({})
+        const getTodo = await todoSchema.find({ userId: req.userId })
         res.send(getTodo)
     } catch (e) {
         res.status(400).send({ failure: true, message: e.message })
@@ -11,7 +11,7 @@ exports.getTodo = async (req, res) => {
 
 exports.getTodoById = async (req, res) => {
     try {
-        const getTodo = await Schema.findById({ _id: req.params.id })
+        const getTodo = await todoSchema.findById({ _id: req.params.id })
         res.send(getTodo)
     } catch (e) {
         res.send({ failure: true, message: e.message })
@@ -20,12 +20,13 @@ exports.getTodoById = async (req, res) => {
 
 exports.addTodo = (req, res) => {
     const { title, description, importance, isCompleted } = req.body
-    if (!title || !description || !importance || !isCompleted) {
+    let userId = req.userId
+    if (!title || !description || !importance) {
         return res.status(411).send({ failure: true, message: "fields are required" })
     }
     else {
         try {
-            const postTodo = new Schema({ title, description, importance, isCompleted })
+            const postTodo = new todoSchema({ title, description, importance, isCompleted, userId })
             postTodo.save().then((data) => {
                 res.send(data)
             })
@@ -41,7 +42,7 @@ exports.updateById = async (req, res) => {
         return res.status(411).send({ failure: true, message: "fields are required" })
     }
     try {
-        const updateTodo = await Schema.findByIdAndUpdate({ _id: req.params.id }, {
+        const updateTodo = await todoSchema.findByIdAndUpdate({ _id: req.params.id }, {
             title, description, importance, isCompleted
         }, { new: true })
         res.send(updateTodo)
@@ -53,7 +54,7 @@ exports.updateById = async (req, res) => {
 
 exports.deleteById = async (req, res) => {
     try {
-        const deleteTodo = await Schema.findByIdAndDelete({ _id: req.params.id })
+        const deleteTodo = await todoSchema.findByIdAndDelete({ _id: req.params.id })
         res.send(deleteTodo)
     } catch (e) {
         res.status(400).send({ failure: true, message: e.message })

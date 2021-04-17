@@ -1,6 +1,12 @@
 const mongoose = require('mongoose')
-
-const todoSchema = mongoose.Schema({
+var enu = {
+    values: ['low', 'medium', 'high']
+    , message: 'importance must be low,high medium.'
+}
+const Schema = mongoose.Schema({
+    userId: {
+        type: String
+    },
     title: {
         type: String,
         trim: true,
@@ -13,12 +19,12 @@ const todoSchema = mongoose.Schema({
     },
     importance: {
         type: String,
-        enum: ['low', 'medium', 'high'],
-        required: true,
+        enum: { values: ['low', 'medium', 'high'], message: 'Status is required.' },
+        required: [true, 'Category required'],
     },
     isCompleted: {
         type: Boolean,
-        required: true
+        default: false
     },
     date: {
         type: Date,
@@ -26,4 +32,4 @@ const todoSchema = mongoose.Schema({
     }
 })
 
-exports.Schema = mongoose.model('todo', todoSchema)
+exports.todoSchema = mongoose.model('todo', Schema)

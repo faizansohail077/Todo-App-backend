@@ -1,14 +1,15 @@
 const express = require('express')
 
 const { controller } = require('../controllers')
+const { isAuth } = require('../middleware/auth.middleware')
 
 const app = express()
 const router = express.Router()
 
-router.get('/', controller.getTodo)
-router.get('/:id', controller.getTodoById)
-router.post('/', controller.addTodo)
-router.put('/:id', controller.updateById)
-router.delete('/:id', controller.deleteById)
+router.get('/', isAuth, controller.getTodo)
+router.get('/:id', isAuth, controller.getTodoById)
+router.post('/', isAuth, controller.addTodo)
+router.put('/:id', isAuth, controller.updateById)
+router.delete('/:id', isAuth, controller.deleteById)
 
-module.exports = app.use('/todo', router)
+exports.todoRouter = app.use('/todo', router)

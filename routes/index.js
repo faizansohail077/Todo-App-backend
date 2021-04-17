@@ -1,3 +1,4 @@
-const todoRouter = require('./todo.route')
+const { todoRouter } = require('./todo.route')
+const { authRoute } = require('./auth.route')
 
-exports.Routes = todoRouter
+exports.Routes = { todoRouter, authRoute }
