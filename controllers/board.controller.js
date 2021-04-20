@@ -14,14 +14,21 @@ exports.addBoard = async (req, res) => {
 
 exports.getBoard = async (req, res) => {
     try {
-        const getBoard = await boardSchema.find().populate(["todos", "user"])
+        const getBoard = await boardSchema.find({ user: req.userId }).populate(["todos", "user"])
         res.send(getBoard)
     } catch (e) {
         res.status(400).send({ failure: true, message: e.message })
     }
 }
+
 exports.getBoardById = async (req, res) => {
     const id = req.params.id
     const getBoard = await boardSchema.findById({ _id: id }).populate(["todos", "user"])
+    res.send(getBoard)
+}
+
+exports.deleteBoardById = async (req, res) => {
+    const id = req.params.id
+    const getBoard = await boardSchema.findByIdAndRemove({ _id: id })
     res.send(getBoard)
 }

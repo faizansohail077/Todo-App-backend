@@ -21,6 +21,4 @@ exports.isAuth = (req, res, next) => {
     } else {
         return res.status(404).send({ status: 404, message: 'No Authorization found!' });
     }
-
 }
-
