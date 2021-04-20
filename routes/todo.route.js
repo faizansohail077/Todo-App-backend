@@ -10,6 +10,7 @@ router.get('/', isAuth, controller.getTodo)
 router.get('/:id', isAuth, controller.getTodoById)
 router.post('/', isAuth, controller.addTodo)
 router.put('/:id', isAuth, controller.updateById)
-router.delete('/:id', isAuth, controller.deleteById)
+router.delete('/:id/board/:boardId', isAuth, controller.deleteById)
 
 exports.todoRouter = app.use('/todo', router)
+

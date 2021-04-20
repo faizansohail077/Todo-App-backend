@@ -59,6 +59,9 @@ exports.updateById = async (req, res) => {
 exports.deleteById = async (req, res) => {
     try {
         const deleteTodo = await todoSchema.findByIdAndDelete({ _id: req.params.id })
+        const updateTodo = await boardSchema.update({ _id: req.params.boardId }, {
+            '$pull': { todos: req.params.id }
+        })
         res.send(deleteTodo)
     } catch (e) {
         res.status(400).send({ failure: true, message: e.message })
