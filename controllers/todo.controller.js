@@ -1,8 +1,9 @@
-const { todoSchema } = require('../model')
+const { todoSchema, boardSchema } = require('../model')
+
 
 exports.getTodo = async (req, res) => {
     try {
-        const getTodo = await todoSchema.find({ userId: req.userId })
+        const getTodo = await todoSchema.find({ userId: req.userId }).populate("userId")
         res.send(getTodo)
     } catch (e) {
         res.status(400).send({ failure: true, message: e.message })
@@ -18,8 +19,8 @@ exports.getTodoById = async (req, res) => {
     }
 }
 
-exports.addTodo = (req, res) => {
-    const { title, description, importance, isCompleted } = req.body
+exports.addTodo = async (req, res) => {
+    const { title, description, importance, isCompleted, boardId } = req.body
     let userId = req.userId
     if (!title || !description || !importance) {
         return res.status(411).send({ failure: true, message: "fields are required" })
@@ -27,7 +28,10 @@ exports.addTodo = (req, res) => {
     else {
         try {
             const postTodo = new todoSchema({ title, description, importance, isCompleted, userId })
-            postTodo.save().then((data) => {
+            postTodo.save().then(async (data) => {
+                const updateTodo = await boardSchema.findOneAndUpdate({ _id: boardId }, {
+                    '$push': { todos: data._id }
+                }, { new: true })
                 res.send(data)
             })
         } catch (e) {

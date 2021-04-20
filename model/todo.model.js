@@ -5,7 +5,8 @@ var enu = {
 }
 const Schema = mongoose.Schema({
     userId: {
-        type: String
+        type: mongoose.Types.ObjectId,
+        ref: "auth"
     },
     title: {
         type: String,

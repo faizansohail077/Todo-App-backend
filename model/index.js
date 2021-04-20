@@ -1,4 +1,5 @@
+
 const { authSchema } = require('./auth.model')
 const { todoSchema } = require('./todo.model')
-
-module.exports = { authSchema, todoSchema }
+const { boardSchema } = require('./Board.model')
+module.exports = { authSchema, todoSchema, boardSchema }
