@@ -15,5 +15,3 @@ exports.boardRoute = app.use('/board', router)
 
 
 
-// "boardId":"607ebccd46e90a335219e53b"
-// todoid 607ebcfebcc31b33cf450444

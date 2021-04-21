@@ -4,7 +4,6 @@ const Schema = mongoose.Schema({
     time: {
         type: Date,
         default: Date.now()
-
     },
     title: {
         type: String,

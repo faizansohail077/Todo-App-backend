@@ -14,7 +14,7 @@ exports.addBoard = async (req, res) => {
 
 exports.getBoard = async (req, res) => {
     try {
-        const getBoard = await boardSchema.find({ user: req.userId }).populate(["todos", "user"])
+        const getBoard = await boardSchema.find({ user: req.userId }).populate(["todos"]).select('-password')
         res.send(getBoard)
     } catch (e) {
         res.status(400).send({ failure: true, message: e.message })
