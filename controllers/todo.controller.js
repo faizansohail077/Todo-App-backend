@@ -15,7 +15,8 @@ exports.getTodo = async (req, res) => {
     let { n } = req.params
     let userId = req.userId
     try {
-        const getTodo = await todoSchema.aggregate([{ $match: { userId: ObjectID(req.userId) } }, {
+
+        const getTodo = await todoSchema.aggregate([{ $match: { userId: ObjectID(req.userId), title: "tod2" } }, {
             $facet: {
                 metadata: [
                     {
