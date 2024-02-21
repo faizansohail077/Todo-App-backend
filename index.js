@@ -48,6 +48,6 @@ app.post('/signup', async (req, res) => {
     }
 })
 
-app.listen("https://todo-app-backend-dmiu.onrender.com/", () => {
+app.listen(4000, () => {
     console.log('server working')
 })
