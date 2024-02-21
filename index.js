@@ -14,7 +14,11 @@ const app = express()
 app.use(express.json())
 app.use(morgan('dev'))
 // app.use('/api', [Routes.todoRouter, Routes.authRoute, Routes.boardRoute])
-app.post('/', async (req, res) => {
+app.get('/', async (req, res) => {
+
+    res.send("welcome to salesforce")
+})
+app.post('/signup', async (req, res) => {
 
     const { username, password, email } = req.body
     if (!username && !password && !email) {
@@ -44,6 +48,6 @@ app.post('/', async (req, res) => {
     }
 })
 
-app.listen(process.env.PORT || 4000, () => {
+app.listen("https://todo-app-backend-dmiu.onrender.com/", () => {
     console.log('server working')
 })
